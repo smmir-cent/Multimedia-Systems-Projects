@@ -8,7 +8,6 @@ apt install libcairo2-dev libpango1.0-dev ffmpeg
 ```
 
 * manim
-	developed based on manim
 	```sh
 	pip3 install manim
 	```
