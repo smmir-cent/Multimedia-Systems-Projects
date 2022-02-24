@@ -5,6 +5,9 @@
 sudo su
 apt update
 apt install libcairo2-dev libpango1.0-dev ffmpeg
+pip3 install virtualenv
+virtualenv -p python3 env
+source env/bin/activate
 ```
 
 * manim
