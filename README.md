@@ -4,16 +4,12 @@
 ```sh
 sudo su
 apt update
-apt install libcairo2-dev libpango1.0-dev ffmpeg
+apt install libcairo2-dev libpango1.0-dev ffmpeg texlive-fonts-extra texlive-formats-extra texlive-lang-german texlive-latex-extra texlive-metapost texlive-publishers texlive-science
 pip3 install virtualenv
 virtualenv -p python3 env
 source env/bin/activate
+pip3 install -r requirements.txt
 ```
-
-* manim
-	```sh
-	pip3 install manim
-	```
 
 ### Executing program
 

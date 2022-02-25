@@ -188,5 +188,6 @@ pip-selfcheck.json
 .ionide
 
 # Support for Project snippet scope
+/media
 
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,virtualenv
