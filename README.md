@@ -15,5 +15,5 @@ pip3 install -r requirements.txt
 
 ```sh
 git clone https://github.com/smmir-cent/Multimedia-Systems-Projects.git
-manimgl src/OpeningManimExample.py OpeningManimExample
+manimgl src/VectorTrain.py VectorTrain -w
 ```

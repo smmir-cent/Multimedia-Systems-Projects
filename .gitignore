@@ -189,5 +189,7 @@ pip-selfcheck.json
 
 # Support for Project snippet scope
 /media
+/videos
+/images
 
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,virtualenv
