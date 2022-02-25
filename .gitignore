@@ -191,5 +191,6 @@ pip-selfcheck.json
 /media
 /videos
 /images
+/sound
 
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,virtualenv
