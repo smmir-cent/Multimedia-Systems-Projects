@@ -5,8 +5,10 @@ import matplotlib.pyplot as plt
 
 width, height = 0, 0
 histogram_amount = np.zeros(256)
+histogram_amount_new = np.zeros(256)
 histogram_amount_result = np.zeros(256)
 cumulative_histogram = np.zeros(256)
+cumulative_histogram_new = np.zeros(256)
 
 
 # convert grayscale  image of original image
@@ -38,11 +40,16 @@ def step_2():
     global histogram_amount
     x = np.arange(0, 256)
     plt.bar(x,histogram_amount) 
-    plt.savefig('assets/histogram.jpg')
+    plt.savefig('assets/histogram_old.png')
+    plt.clf()
 
 def step_3():
     global histogram_amount,cumulative_histogram
     cumulative_histogram = np.cumsum(histogram_amount)
+    x = np.arange(0, 256)
+    plt.bar(x,cumulative_histogram) 
+    plt.savefig('assets/cumulative_histogram_old.png')
+    plt.clf()
 
 def step_4_5(grayscale_image):
     global histogram_amount,cumulative_histogram,histogram_amount_result,width,height
@@ -58,6 +65,24 @@ def step_4_5(grayscale_image):
     result_image.save("assets/final_result.png")
 
 
+def step_6():
+    global histogram_amount_new,cumulative_histogram_new
+    img = Image.open("assets/final_result.png")
+    for i in range(height):
+        for j in range(width):
+            histogram_amount_new[img.getpixel((j,i))] += 1
+    x = np.arange(0, 256)
+    plt.bar(x,histogram_amount_new) 
+    plt.savefig('assets/histogram_new.png')
+    plt.clf()
+    cumulative_histogram_new = np.cumsum(histogram_amount_new)
+    x = np.arange(0, 256)
+    plt.bar(x,cumulative_histogram_new) 
+    plt.savefig('assets/cumulative_histogram_new.png')
+    plt.clf()
+
+
+
 if __name__ == '__main__':
     img_location = input("Enter your image : ")
     image = Image.open(img_location)
@@ -65,6 +90,7 @@ if __name__ == '__main__':
     step_2()
     step_3()
     step_4_5(grayscale_image)
+    step_6()
     
 
 ### assets/image.png
