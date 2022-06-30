@@ -1,49 +1,45 @@
 # A Huffman Tree Node from GFG
 class node:
-	def __init__(self, freq, symbol, left=None, right=None):
-		# frequency of symbol
-		self.freq = freq
+    def __init__(self, freq, symbol, left=None, right=None):
+        # frequency of symbol
+        self.freq = freq
 
-		# symbol name (character)
-		self.symbol = symbol
+        # symbol name (character)
+        self.symbol = symbol
 
-		# node left of current node
-		self.left = left
+        # node left of current node
+        self.left = left
 
-		# node right of current node
-		self.right = right
+        # node right of current node
+        self.right = right
 
-		# tree direction (0/1)
-		self.huff = ''
+        # tree direction (0/1)
+        self.huff = ''
 
 # utility function to print huffman
 # codes for all symbols in the newly
 # created Huffman tree
 
 
-def printNodes(node, val=''):
-	# huffman code for current node
-	newVal = val + str(node.huff)
+def printNodes(node, x_huff, val=''):
+    # huffman code for current node
+    newVal = val + str(node.huff)
 
-	# if node is not an edge node
-	# then traverse inside it
-	if(node.left):
-		printNodes(node.left, newVal)
-	if(node.right):
-		printNodes(node.right, newVal)
-
-		# if node is edge node then
-		# display its huffman code
-	if(not node.left and not node.right):
-		print(f"{node.symbol} -> {newVal}")
+    # if node is not an edge node
+    # then traverse inside it
+    if(node.left):
+        printNodes(node.left,x_huff, newVal)
+    if(node.right):
+        printNodes(node.right,x_huff, newVal)
+    if(not node.left and not node.right):
+        print(f"{node.symbol} -> {newVal}")
+        x_huff[node.symbol] = newVal
 
 
-# # characters for huffman tree
-# chars = ['a', 'b', 'c', 'd', 'e', 'f']
 
-# # frequency of characters
-# freq = [ 5, 9, 12, 13, 16, 45]
-def huff(chars,freq):
+
+
+def huff(chars,freq,x_huff):
     # list containing unused nodes
     nodes = []
 
@@ -76,7 +72,7 @@ def huff(chars,freq):
         nodes.append(newNode)
 
     # Huffman Tree is ready!
-    printNodes(nodes[0])
+    printNodes(nodes[0],x_huff)
 
 
 
@@ -86,5 +82,5 @@ if __name__ == '__main__':
 
     # frequency of characters
     freq = [ 3, 3, 1, 5, 1, 1, 1]   
-     
-    huff(chars,freq)
+
+    huff(chars,freq,{})

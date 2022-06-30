@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import scipy
 from scipy import fftpack
 import huffman
+import pickle
 
 height = 1
 width = 1280
@@ -20,6 +21,15 @@ def dct2(a):
 
 def idct2(a):
     return scipy.fftpack.idct( scipy.fftpack.idct( a, axis=0 , norm='ortho'), axis=1 , norm='ortho')
+
+
+def _to_Bytes(data):
+  b = bytearray()
+  for i in range(0, len(data), 8):
+    b.append(int(data[i:i+8], 2))
+  return bytes(b)
+
+
 
 
 if __name__ == '__main__':
@@ -96,17 +106,46 @@ if __name__ == '__main__':
     # print(f_hat_y.shape)
     # print(f_hat_cr.shape)
     # print(f_hat_cb.shape)
-    
+    y_huff_trees = []
+    cr_huff_trees = []
+    cb_huff_trees = []
+    y_huff_values = ''
+    cr_huff_values = ''
+    cb_huff_values = ''         
     for i in range(0,856,8):
         for j in range(0,1280,8):
           y_freq = {}
           cr_freq = {}
-          cb_freq = {}          
+          cb_freq = {}
+          y_huff = {}
+          cr_huff = {}
+          cb_huff = {}                    
           for i2 in range(0,8):
             for j2 in range(0,8):          
               y_freq[f_hat_y[i+i2,j+j2]] = y_freq.get(f_hat_y[i+i2,j+j2],0) + 1
               cr_freq[f_hat_cr[i+i2,j+j2]] = cr_freq.get(f_hat_cr[i+i2,j+j2],0) + 1
               cb_freq[f_hat_cb[i+i2,j+j2]] = cb_freq.get(f_hat_cb[i+i2,j+j2],0) + 1              
-          huffman.huff(list(y_freq.keys()),list(y_freq.values()))
-          huffman.huff(list(cr_freq.keys()),list(cr_freq.values()))
-          huffman.huff(list(cb_freq.keys()),list(cb_freq.values()))
+          huffman.huff(list(y_freq.keys()),list(y_freq.values()),y_huff)
+          huffman.huff(list(cr_freq.keys()),list(cr_freq.values()),cr_huff)
+          huffman.huff(list(cb_freq.keys()),list(cb_freq.values()),cb_huff)
+          y_huff_trees.append(y_huff)
+          cr_huff_trees.append(cr_huff)
+          cb_huff_trees.append(cb_huff)
+          for key in y_freq.keys():
+            for counter in range(y_freq[key]):
+              y_huff_values += y_huff[key]
+
+          for key in cr_freq.keys():
+            for counter in range(cr_freq[key]):
+              cr_huff_values += cr_huff[key]
+
+          for key in cb_freq.keys():
+            for counter in range(cb_freq[key]):
+              cb_huff_values += cb_huff[key]     
+    with open("compressed.bin", "wb") as f:
+      pickle.dump(y_huff_trees, open("compressed.bin", "wb"))         
+      pickle.dump(cr_huff_trees, open("compressed.bin", "wb"))         
+      pickle.dump(cb_huff_trees, open("compressed.bin", "wb"))         
+      pickle.dump(y_huff_values, open("compressed.bin", "wb"))         
+      pickle.dump(cr_huff_values, open("compressed.bin", "wb"))         
+      pickle.dump(cb_huff_values, open("compressed.bin", "wb"))         
