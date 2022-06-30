@@ -15,7 +15,7 @@ pip3 install -r requirements.txt
 
 ```sh
 git clone https://github.com/smmir-cent/Multimedia-Systems-Projects.git
-manimgl src/VectorTrain.py VectorTrain -w
+manimgl src/vector_train/VectorTrain.py VectorTrain -w
 sox sound/sound.ogg sound/looped_sound.ogg repeat 2 # adjust count as necessary
 ffmpeg -i videos/VectorTrain.mp4 -i sound/looped_sound.ogg -shortest videos/output.mp4
 ```
